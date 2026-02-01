@@ -1,12 +1,164 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>2026 AI 중점학교 자료집 - 운영체제</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>2026학년도 AI중점학교 중등 자료집 - 운영체제</title>
+  <style>
+    :root { --border:#e5e7eb; --text:#111827; --muted:#6b7280; --bg:#ffffff; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; color: var(--text); background: var(--bg); }
+    header { display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; }
+    h1 { font-size: 22px; margin: 0; }
+    .sub { color: var(--muted); margin: 0; font-size: 14px; }
+    .topbar { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin: 16px 0 18px; }
+    input[type="search"]{
+      width: min(520px, 100%);
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+    }
+    .hint { color: var(--muted); font-size: 13px; margin: 0; }
+    .list { margin-top: 8px; }
+    .item {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 16px;
+      padding: 18px 0;
+      border-top: 1px solid var(--border);
+    }
+    .left { display:flex; flex-direction:column; gap:10px; }
+    .badge {
+      display:inline-flex; align-items:center; gap:8px;
+      font-weight: 700; font-size: 14px;
+    }
+    .badge a { color: inherit; text-decoration: none; }
+    .badge a:hover { text-decoration: underline; }
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #f9fafb;
+    }
+    .desc {
+      white-space: pre-wrap;
+      line-height: 1.65;
+      font-size: 15px;
+    }
+    .empty, .error {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #f9fafb;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    footer { margin-top: 28px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 900px) {
+      .item { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <h1>2026 AI 중점학교 자료집 - 운영체제</h1>
-  <p>GitHub Pages 테스트 페이지입니다.</p>
+  <header>
+    <h1>2026학년도 AI중점학교 중등 자료집 - 운영체제</h1>
+    <p class="sub">설치/실습 과정을 단계별로 정리합니다.</p>
+  </header>
+
+  <div class="topbar">
+    <input id="q" type="search" placeholder="검색: 예) ISO, 메모리 256, VirtualBox ..." autocomplete="off" />
+    <p class="hint">설명 내용에서 검색됩니다. (예: “디스크”, “부팅”, “설치”)</p>
+  </div>
+
+  <div id="status"></div>
+  <div id="list" class="list"></div>
+
+  <footer>
+    <div>관리: GitHub 저장소에서 <code>images</code> 폴더에 사진을 올리고, <code>data/steps.json</code>에 설명을 추가하면 자동 반영됩니다.</div>
+  </footer>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const listEl = document.getElementById('list');
+    const qEl = document.getElementById('q');
+
+    function escapeHtml(s) {
+      return String(s ?? '')
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#39;");
+    }
+
+    function render(items, query) {
+      const q = (query || '').trim().toLowerCase();
+      const filtered = items.filter(it => {
+        if (!q) return true;
+        const hay = `${it.no ?? ''} ${it.title ?? ''} ${it.desc ?? ''}`.toLowerCase();
+        return hay.includes(q);
+      });
+
+      if (!items.length) {
+        statusEl.innerHTML = `<div class="empty">아직 단계가 없습니다. <code>data/steps.json</code>에 항목을 추가해 주세요.</div>`;
+        listEl.innerHTML = '';
+        return;
+      }
+
+      if (!filtered.length) {
+        statusEl.innerHTML = `<div class="empty">검색 결과가 없습니다. (검색어: <b>${escapeHtml(q)}</b>)</div>`;
+        listEl.innerHTML = '';
+        return;
+      }
+
+      statusEl.innerHTML = '';
+      listEl.innerHTML = filtered.map(it => {
+        const no = it.no ?? '';
+        const img = it.img ?? '';
+        const title = it.title ? ` - ${escapeHtml(it.title)}` : '';
+        const anchor = `step-${no || Math.random().toString(16).slice(2)}`;
+        const desc = escapeHtml(it.desc ?? '');
+
+        return `
+          <section class="item" id="${anchor}">
+            <div class="left">
+              <div class="badge">
+                <a href="#${anchor}">Step ${escapeHtml(no)}${title}</a>
+              </div>
+              ${img ? `<img src="${escapeHtml(img)}" alt="step ${escapeHtml(no)}">` : ''}
+            </div>
+            <div class="desc">${desc}</div>
+          </section>
+        `;
+      }).join('');
+    }
+
+    async function load() {
+      try {
+        // 캐시 때문에 최신이 안 보이는 경우가 있어 no-store 사용
+        const res = await fetch('data/steps.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error(`steps.json을 불러오지 못했습니다. (HTTP ${res.status})`);
+        const items = await res.json();
+
+        if (!Array.isArray(items)) {
+          throw new Error('steps.json 형식이 배열([])이 아닙니다.');
+        }
+
+        // 번호 오름차순 정렬
+        items.sort((a, b) => (a.no ?? 0) - (b.no ?? 0));
+
+        // 검색 연결
+        render(items, qEl.value);
+        qEl.addEventListener('input', () => render(items, qEl.value));
+      } catch (e) {
+        statusEl.innerHTML = `<div class="error">오류: ${escapeHtml(e.message)}<br>확인: <code>data/steps.json</code> 파일이 존재하고 JSON 형식이 맞는지 확인해 주세요.</div>`;
+        listEl.innerHTML = '';
+      }
+    }
+
+    load();
+  </script>
 </body>
 </html>
