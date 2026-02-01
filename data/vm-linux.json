@@ -70,5 +70,39 @@
     "title": "Tiny Core Linux",
     "img": "images/타이니코어리눅스04.png",
     "desc": "TinyCore-current.iso 파일이 다운됩니다."
+  },  
+  {
+    "no": 13,
+    "title": "VirtualBox",
+    "img": "images/버추얼박스11.png",
+    "desc": "VirtualBox에서 새로만들기를 누르고 
+             VM Name 는 TinyCoreLinux 로
+             ISO Image는 방금 다운받은 TinyCore-current.iso 파일을 선택하세요."
+  },
+  {
+    "no": 14,
+    "title": "VirtualBox",
+    "img": "images/버추얼박스12.png",
+    "desc": "Specify virtual hardware 탭을 누르고
+             Base Memory는 2024MB 정도
+             Number of CPUs 는 1개 정도로 셋팅하고 완료를 누릅니다."
+  },
+  {
+    "no": 14,
+    "title": "VirtualBox",
+    "img": "images/버추얼박스13.png",
+    "desc": "이제 가상머신을 실행합니다. Boot TinyCore를 선택하고 엔터를 누르세요."
+  },
+  {
+    "no": 15,
+    "title": "VirtualBox",
+    "img": "images/버추얼박스14.png",
+    "desc": "가상머신이 TinyCoreLinux 운영체제로 부팅, 실행됩니다."
+  },
+  {
+    "no": 16,
+    "title": "VirtualBox",
+    "img": "images/버추얼박스15.png",
+    "desc": "터미널을 열어 다양한 리눅스 명령어를 실행해보세요!"
   }
 ]
