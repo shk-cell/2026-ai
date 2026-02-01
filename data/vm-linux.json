@@ -1,14 +1,74 @@
 [
   {
     "no": 1,
-    "title": "가상 머신 생성",
-    "img": "images/v01.png",
-    "desc": "VirtualBox에서 새 가상 머신을 만든다.\n메모리 256MB로 설정한다."
+    "title": "Virtual Box",
+    "img": "images/버추얼박스01.png",
+    "desc": "구글에 Virtual Box를 검색하세요."
   },
   {
     "no": 2,
-    "title": "ISO 연결 및 부팅",
-    "img": "images/v02.png",
-    "desc": "부팅 디스크에 Tiny Core Linux ISO를 연결하고 실행한다."
+    "title": "Virtual Box",
+    "img": "images/버추얼박스02.png",
+    "desc": "다운로드 페이지로 이동합니다."
+  },
+  {
+    "no": 3,
+    "title": "Virtual Box",
+    "img": "images/버추얼박스03.png",
+    "desc": "Windows hosts를 눌러 다운받으세요."
+  },
+  {
+    "no": 4,
+    "title": "Virtual Box",
+    "img": "images/버추얼박스04.png",
+    "desc": "exe 파일을 실행하세요."
+  },
+  {
+    "no": 5,
+    "title": "Virtual Box",
+    "img": "images/버추얼박스05.png",
+    "desc": "VirtualBox 설치합니다. 다른 변경사항 없이 next를 눌러 설치를 진행합니다."
+  },
+  {
+    "no": 6,
+    "title": "Virtual Box",
+    "img": "images/버추얼박스06.png",
+    "desc": "동의하고 다음 눌러주세요."
+  },
+  {
+    "no": 7,
+    "title": "Virtual Box",
+    "img": "images/버추얼박스07.png",
+    "desc": "변경사항 없이 쭉 다음 누릅니다."
+  },
+  {
+    "no": 8,
+    "title": "Virtual Box",
+    "img": "images/버추얼박스09.png",
+    "desc": "설치가 완료되었습니다."
+  },
+  {
+    "no": 9,
+    "title": "Tiny Core Linux",
+    "img": "images/타이니코어리눅스01.png",
+    "desc": "구글에 타이니코어리눅스를 검색하세요."
+  },
+  {
+    "no": 10,
+    "title": "Tiny Core Linux",
+    "img": "images/타이니코어리눅스02.png",
+    "desc": "Tiny Core linux 페이지로 이동합니다."
+  },
+  {
+    "no": 11,
+    "title": "Tiny Core Linux",
+    "img": "images/타이니코어리눅스03.png",
+    "desc": "Tiny Core linux 다운로드 페이지로 이동하고 TinyCore(23MB)를 눌러 다운받으세요."
+  },
+  {
+    "no": 12,
+    "title": "Tiny Core Linux",
+    "img": "images/타이니코어리눅스04.png",
+    "desc": "TinyCore-current.iso 파일이 다운됩니다."
   }
 ]
