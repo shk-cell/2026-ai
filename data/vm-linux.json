@@ -75,17 +75,13 @@
     "no": 13,
     "title": "VirtualBox",
     "img": "images/버추얼박스11.png",
-    "desc": "VirtualBox에서 새로만들기를 누르고 
-             VM Name 는 TinyCoreLinux 로
-             ISO Image는 방금 다운받은 TinyCore-current.iso 파일을 선택하세요."
+    "desc": "VirtualBox에서 새로만들기를 누르고\nVM Name 는 TinyCoreLinux 로\nISO Image는 방금 다운받은 TinyCore-current.iso 파일을 선택하세요."
   },
   {
     "no": 14,
     "title": "VirtualBox",
     "img": "images/버추얼박스12.png",
-    "desc": "Specify virtual hardware 탭을 누르고
-             Base Memory는 2024MB 정도
-             Number of CPUs 는 1개 정도로 셋팅하고 완료를 누릅니다."
+    "desc": "Specify virtual hardware 탭을 누르고\nBase Memory는 2024MB 정도\nNumber of CPUs 는 1개 정도로 셋팅하고 완료를 누릅니다."
   },
   {
     "no": 14,
