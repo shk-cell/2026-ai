@@ -1,0 +1,16 @@
+[
+  {
+    "no": 1,
+    "title": "활동 안내",
+    "link": "",
+    "img": "images/pcbs/step1.png",
+    "desc": "PC Building Simulator 활동의 목표와 진행 순서를 안내합니다."
+  },
+  {
+    "no": 2,
+    "title": "부품 구분하기",
+    "link": "",
+    "img": "images/pcbs/step2.png",
+    "desc": "CPU, RAM, 저장장치, 메인보드의 역할을 게임 화면에서 확인합니다."
+  }
+]
