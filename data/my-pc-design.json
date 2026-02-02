@@ -1,1 +1,17 @@
 
+[
+  {
+    "no": 1,
+    "title": "설계 목표 정하기",
+    "link": "",
+    "img": "images/design/step1.png",
+    "desc": "게임용/사무용/학습용 중 목적을 정하고 예산을 설정합니다."
+  },
+  {
+    "no": 2,
+    "title": "견적 구성",
+    "link": "https://shop.danawa.com/",
+    "img": "images/design/step2.png",
+    "desc": "견적 사이트에서 부품을 선택하고, 선택 근거를 정리합니다."
+  }
+]
