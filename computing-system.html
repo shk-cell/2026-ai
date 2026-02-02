@@ -31,25 +31,14 @@
     h1{
       font-size:22px;
       font-weight:700;
-      margin:0 0 8px 0;
-    }
-
-    .subtitle{
-      color:var(--muted);
-      font-size:14px;
       margin:0 0 16px 0;
-      line-height:1.6;
     }
 
-    .toc-tabs{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin:0 0 18px 0;
-    }
-    .toc-tab{
+    /* ✅ 홈 버튼 */
+    .home-btn{
       display:inline-block;
-      padding:10px 14px;
+      margin-bottom:18px;
+      padding:8px 12px;
       border-radius:12px;
       border:1px solid var(--border);
       text-decoration:none;
@@ -58,11 +47,9 @@
       font-weight:700;
       font-size:14px;
     }
-    .toc-tab:hover{ background:#f6f8fa; }
-    .toc-tab.active{
-      background:#111827;
-      color:#fff;
-      border-color:#111827;
+
+    .home-btn:hover{
+      background:#f6f8fa;
     }
 
     .panel{
@@ -99,11 +86,13 @@
       background:var(--card);
       padding:14px;
     }
+
     .card .title{
       font-weight:700;
       margin:0 0 6px 0;
       font-size:14px;
     }
+
     .card .desc{
       margin:0;
       color:var(--muted);
@@ -127,14 +116,9 @@
 
 <body>
   <h1>2026학년도 AI중점학교 중등 자료집 - 컴퓨팅시스템</h1>
-  <p class="subtitle">컴퓨터 하드웨어와 가상화, 시스템 구성 요소를 이해·체험하는 단원입니다.</p>
 
-  <nav class="toc-tabs" aria-label="대단원 목차">
-    <a class="toc-tab" href="index.html">목차</a>
-    <a class="toc-tab active" href="computing-system.html">1. 컴퓨팅시스템</a>
-    <a class="toc-tab" href="os.html">2. 운영체제</a>
-    <a class="toc-tab" href="physical-computing.html">3. 피지컬 컴퓨팅</a>
-  </nav>
+  <!-- ✅ 홈 버튼만 유지 -->
+  <a class="home-btn" href="index.html">← 홈으로</a>
 
   <section class="panel">
     <h2>준비중</h2>
@@ -147,31 +131,36 @@
     <div class="grid">
       <div class="card">
         <p class="title">예정 활동 1</p>
-        <p class="desc">PC Building Simulator로 부품 장착과 케이블 연결을 통해
-컴퓨팅 시스템 구조를 체험합니다.</p>
+        <p class="desc">
+PC Building Simulator로 부품 장착과 케이블 연결을 통해
+컴퓨팅 시스템 구조를 체험합니다.
+        </p>
       </div>
 
       <div class="card">
         <p class="title">예정 활동 2</p>
-        <p class="desc">견적 사이트(다나와/컴퓨존)로 원하는 목적(게임/사무/학습)에 맞춰
-부품을 선택하고 근거를 정리합니다.</p>
+        <p class="desc">
+견적 사이트(다나와/컴퓨존)로 원하는 목적(게임/사무/학습)에 맞춰
+부품을 선택하고 근거를 정리합니다.
+        </p>
       </div>
 
       <div class="card">
         <p class="title">예정 활동 3</p>
-        <p class="desc">가상화 개념을 정리하고
-왜 운영체제 실습에서 가상머신을 사용하는지 연결합니다.</p>
+        <p class="desc">
+가상화 개념을 정리하고
+왜 운영체제 실습에서 가상머신을 사용하는지 연결합니다.
+        </p>
       </div>
 
       <div class="card">
         <p class="title">예정 활동 4</p>
-        <p class="desc">학생 산출물(견적/설명/비교표)을 모아
-팀별 발표 자료로 구성합니다.</p>
+        <p class="desc">
+학생 산출물(견적/설명/비교표)을 모아
+팀별 발표 자료로 구성합니다.
+        </p>
       </div>
     </div>
 
-    <div class="hint">※ 운영체제 단원처럼 JSON 기반 Step 출력 방식으로 확장하고 싶다면,
-data 폴더에 파일을 두고 탭으로 분리하는 구조로 동일하게 만들 수 있습니다.</div>
-  </section>
-</body>
-</html>
+    <div class="hint">
+※ 운영체제 단원처럼 JSON 기반 Step
