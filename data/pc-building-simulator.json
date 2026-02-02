@@ -8,9 +8,100 @@
   },
   {
     "no": 2,
-    "title": "부품 구분하기",
+    "title": "PC BUILDING SIMULATOR",
     "link": "",
-    "img": "images/pcbs/step2.png",
-    "desc": "CPU, RAM, 저장장치, 메인보드의 역할을 게임 화면에서 확인합니다."
+    "img": "images/PcBuildingSimulator01.png",
+    "desc": "이 게임의 PC제작 모드 이용 방법 설명을 통해 주요 구성품과 설치 방법을 배울 수 있습니다."
+  },
+  {
+    "no": 3,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator02.png",
+    "desc": ""
+  },
+  {
+    "no": 4,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator03.png",
+    "desc": ""
+  },
+   {
+    "no": 5,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator04.png",
+    "desc": ""
+  },
+  {
+    "no": 6,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator05.png",
+    "desc": ""
+  },
+  {
+    "no": 7,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator06.png",
+    "desc": ""
+  },
+  {
+    "no": 8,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator07.png",
+    "desc": ""
+  },
+  {
+    "no": 9,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator08.png",
+    "desc": ""
+  },
+  {
+    "no": 10,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator09.png",
+    "desc": ""
+  },
+  {
+    "no": 11,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator10.png",
+    "desc": ""
+  },
+  {
+    "no": 12,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator11.png",
+    "desc": ""
+  },
+  {
+    "no": 13,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator12.png",
+    "desc": ""
+  },
+  {
+    "no": 14,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator13.png",
+    "desc": ""
+  },
+  {
+    "no": 15,
+    "title": "PC BUILDING SIMULATOR",
+    "link": "",
+    "img": "images/PcBuildingSimulator14.png",
+    "desc": ""
   }
 ]
