@@ -17,8 +17,8 @@
       --border:#e5e7eb;
       --text:#111827;
       --bg:#ffffff;
+      --link:#2563eb;
       --muted:#6b7280;
-      --card:#f9fafb;
     }
 
     body{
@@ -34,7 +34,6 @@
       margin:0 0 16px 0;
     }
 
-    /* ✅ 홈 버튼 */
     .home-btn{
       display:inline-block;
       margin-bottom:18px;
@@ -47,67 +46,60 @@
       font-weight:700;
       font-size:14px;
     }
+    .home-btn:hover{ background:#f6f8fa; }
 
-    .home-btn:hover{
-      background:#f6f8fa;
+    /* ✅ 단원 내부 탭 구성 */
+    .tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:20px;
     }
-
-    .panel{
+    .tab{
+      padding:10px 14px;
       border:1px solid var(--border);
-      border-radius:14px;
-      background:#fff;
-      padding:18px;
-      margin-top:10px;
-    }
-
-    .panel h2{
-      font-size:16px;
+      border-radius:12px;
+      background:#f9fafb;
+      cursor:pointer;
+      font-size:14px;
       font-weight:700;
-      margin:0 0 10px 0;
+      font-family:'MaplestoryLight', sans-serif;
+    }
+    .tab.active{
+      background:#111827;
+      color:#fff;
+      border-color:#111827;
     }
 
-    .panel p{
-      margin:0;
-      line-height:1.7;
-      font-size:15px;
-      white-space:pre-wrap;
-    }
-
-    .grid{
+    .item{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top:14px;
+      grid-template-columns:420px 1fr;
+      gap:16px;
+      padding:18px 0;
+      border-top:1px solid var(--border);
     }
 
-    .card{
+    img{
+      width:100%;
+      border-radius:12px;
       border:1px solid var(--border);
-      border-radius:14px;
-      background:var(--card);
-      padding:14px;
-    }
-    .card .title{
-      font-weight:700;
-      margin:0 0 6px 0;
-      font-size:14px;
-    }
-    .card .desc{
-      margin:0;
-      color:var(--muted);
-      line-height:1.6;
-      font-size:14px;
-      white-space:pre-wrap;
+      background:#f9fafb;
     }
 
-    .hint{
-      margin-top:14px;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.6;
+    .badge{
+      font-weight:700;
+      font-size:14px;
+      margin-bottom:10px;
+    }
+
+    .desc{
+      white-space:pre-wrap;
+      line-height:1.65;
+      font-size:15px;
     }
 
     @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
+      .item{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -115,57 +107,79 @@
 <body>
   <h1>2026학년도 AI중점학교 중등 자료집 - 피지컬 컴퓨팅</h1>
 
-  <!-- ✅ 홈 버튼만 유지 -->
   <a class="home-btn" href="index.html">목차</a>
 
-  <section class="panel">
-    <h2>준비중</h2>
-    <p>이 단원에는 아래 내용이 순서대로 추가됩니다.
-- Tinkercad Circuits 기초(회로 구성, 전원/접지 개념)
-- L2P3 모터 드라이버 이해(입력/활성화/출력)
-- 하비기어모터 구동 및 배선 색상 기준
-- micro:bit 브레이크아웃 보드 연결
-- 무선 제어(라디오) 기반 자율주행/원격 주행 활동</p>
+  <div class="tabs">
+    <button class="tab" id="tab-streetlamp" onclick="switchPage('streetlamp')">
+      1. 에너지 하이브리드 가로등 시스템
+    </button>
+    <button class="tab" id="tab-tracker" onclick="switchPage('tracker')">
+      2. 에너지 효율을 위한 태양광 추적 시스템
+    </button>
+  </div>
 
-    <div class="grid">
-      <div class="card">
-        <p class="title">예정 활동 1</p>
-        <p class="desc">
-Tinkercad에서 회로를 구성하고
-전원(+), 접지(-), 신호선을 구분합니다.
-        </p>
-      </div>
+  <div id="list"></div>
 
-      <div class="card">
-        <p class="title">예정 활동 2</p>
-        <p class="desc">
-모터 드라이버(L2P3)의 입력/출력/EN 구조를 이해하고
-안전한 연결 순서를 적용합니다.
-        </p>
-      </div>
+  <script>
+    const listEl = document.getElementById('list');
 
-      <div class="card">
-        <p class="title">예정 활동 3</p>
-        <p class="desc">
-micro:bit로 무선(라디오) 제어 코드를 작성하고
-기울기/가속도 센서를 입력으로 활용합니다.
-        </p>
-      </div>
+    // ✅ 데이터 파일 경로 설정 (추후 data 폴더에 해당 json 파일들을 생성해야 합니다)
+    const pages = {
+      streetlamp: { file: 'data/hybrid-streetlamp.json' },
+      tracker:    { file: 'data/solar-tracker.json' }
+    };
 
-      <div class="card">
-        <p class="title">예정 활동 4</p>
-        <p class="desc">
-팀별로 차량 주행 미션을 설계하고
-테스트-수정-개선을 반복합니다.
-        </p>
-      </div>
-    </div>
+    function escapeHtml(s){
+      return String(s ?? '')
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#39;");
+    }
 
-    <div class="hint">
-※ 운영체제 단원처럼 Step 카드/이미지 중심으로 구성하려면
-data 폴더에 JSON(steps) 파일을 두고 탭으로 분리하는 형태로 동일하게 확장할 수 있습니다.
-    </div>
-  </section>
+    function setActiveTab(key){
+      document.getElementById('tab-streetlamp').classList.toggle('active', key === 'streetlamp');
+      document.getElementById('tab-tracker').classList.toggle('active', key === 'tracker');
+    }
+
+    function render(items){
+      listEl.innerHTML = items.map(it => {
+        const no = escapeHtml(it.no ?? '');
+        const title = escapeHtml(it.title ?? '');
+        const img = it.img ? escapeHtml(it.img) : '';
+        const desc = escapeHtml(it.desc ?? '');
+
+        return `
+          <section class="item">
+            <div>
+              <div class="badge">Step ${no} - ${title}</div>
+              ${img ? `<img src="${img}" alt="step ${no}">` : ''}
+            </div>
+            <div class="desc">${desc}</div>
+          </section>
+        `;
+      }).join('');
+    }
+
+    async function switchPage(key){
+      setActiveTab(key);
+      listEl.innerHTML = '<p style="padding:20px; color:#6b7280;">데이터를 불러오는 중...</p>';
+
+      try{
+        const res = await fetch(pages[key].file, { cache:'no-store' });
+        if(!res.ok) throw new Error();
+        const items = await res.json();
+        
+        items.sort((a,b)=>(a.no ?? 0) - (b.no ?? 0));
+        render(items);
+      }catch{
+        listEl.innerHTML = '<p style="padding:20px; color:#ef4444;">학습 자료(JSON)를 찾을 수 없습니다. data 폴더의 파일을 확인해주세요.</p>';
+      }
+    }
+
+    // 초기 화면 로드
+    switchPage('streetlamp');
+  </script>
 </body>
 </html>
-
