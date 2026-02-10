@@ -48,7 +48,6 @@
     }
     .home-btn:hover{ background:#f6f8fa; }
 
-    /* 탭 스타일 */
     .tabs{
       display:flex;
       gap:10px;
@@ -71,7 +70,6 @@
       border-color:#111827;
     }
 
-    /* 리스트 아이템 스타일 */
     .item{
       display:grid;
       grid-template-columns:420px 1fr;
@@ -99,7 +97,6 @@
       font-size:15px;
     }
 
-    /* 코드 섹션 스타일 */
     #code-section {
       margin-top:30px;
       border-top:2px solid var(--border);
@@ -170,7 +167,7 @@
       tracker:    { file: 'data/solar-tracker.json' }
     };
 
-    // 아두이노 소스코드 데이터
+    // 1. 가로등 시스템 소스코드
     const streetlampCode = `unsigned long previousMillis = 0;
 const long interval = 2000;
 
@@ -183,31 +180,24 @@ void setup() {
 void loop() {
   unsigned long currentMillis = millis();
 
-  // 2초 간격으로 실행
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
 
-    // 1. A1에서 캐패시터 전압 측정
     int chargeLevel = analogRead(A1);
     float solarVoltage = chargeLevel * (5.0 / 1023.0);
     
-    // 2. A0(스위치 가운데 다리) 전압 측정
     int senseValue = analogRead(A0); 
     float currentPower = senseValue * (5.0 / 1023.0);
 
     Serial.println("---------- Status Report ----------");
 
-    // 기준: A0 전압이 4.5V보다 크면 아두이노 전원(오른쪽)으로 판단
     if (currentPower > 4.5) {
       Serial.println("Mode: [ARDUINO POWER] - Stable");
-    } 
-    // 그 외에는 캐패시터 전원(왼쪽) 사용 중으로 판단
-    else {
+    } else {
       Serial.print("Mode: [SOLAR POWER] - ");
-      Serial.print(solarVoltage); // A1에서 측정한 전압값
+      Serial.print(solarVoltage);
       Serial.println(" V");
       
-      // 빨간 LED 전압 특성을 고려하여 3.0V 기준으로 경고
       if (solarVoltage < 3.0) {
         Serial.println("Warning: Low Energy!");
       }
@@ -216,7 +206,48 @@ void loop() {
   }
 }`;
 
-    const trackerCode = `// 태양광 추적 시스템 코드는 준비 중입니다.`;
+    // 2. 태양광 추적 시스템 소스코드
+    const trackerCode = `#include <Servo.h>
+
+Servo tracker;
+int pos = 90;        // 시작은 남쪽(90도)
+int tolerance = 20;  // 감도 조절
+
+void setup() {
+  tracker.attach(9);
+  tracker.write(pos); 
+  Serial.begin(9600);
+}
+
+void loop() {
+  int valE = analogRead(A0); // 동쪽 센서
+  int valS = analogRead(A1); // 남쪽 센서
+  int valW = analogRead(A2); // 서쪽 센서
+
+  // 1. 동쪽(A0)이 제일 밝으면 -> 170도 방향으로 이동
+  if (valE > valS + tolerance && valE > valW + tolerance) {
+    if (pos < 170) pos += 2; // 각도를 높여서 170도로 보냄
+  }
+  // 2. 서쪽(A2)이 제일 밝으면 -> 10도 방향으로 이동
+  else if (valW > valS + tolerance && valW > valE + tolerance) {
+    if (pos > 10) pos -= 2;  // 각도를 낮춰서 10도로 보냄
+  }
+  // 3. 남쪽(A1)이 제일 밝거나 값이 비슷하면 -> 90도 유지
+  else {
+    if (pos < 90) pos += 2;
+    else if (pos > 90) pos -= 2;
+  }
+
+  tracker.write(pos);
+  
+  // 상태 확인용 출력
+  Serial.print("E(A0):"); Serial.print(valE);
+  Serial.print(" | S(A1):"); Serial.print(valS);
+  Serial.print(" | W(A2):"); Serial.print(valW);
+  Serial.print(" | Current Angle:"); Serial.println(pos);
+  
+  delay(30);
+}`;
 
     function escapeHtml(s){
       return String(s ?? '')
@@ -254,13 +285,13 @@ void loop() {
     async function switchPage(key){
       setActiveTab(key);
       listEl.innerHTML = '<p style="padding:20px;">데이터 로딩 중...</p>';
-
-      // 코드 섹션 제어
+      
+      // 탭에 따라 코드 박스 내용 변경 및 표시
+      codeSection.style.display = 'block';
       if (key === 'streetlamp') {
-        codeSection.style.display = 'block';
         codeBlock.innerText = streetlampCode;
       } else {
-        codeSection.style.display = 'none'; // 혹은 trackerCode 연결
+        codeBlock.innerText = trackerCode;
       }
 
       try{
@@ -277,11 +308,11 @@ void loop() {
     function copyCode() {
       const code = codeBlock.innerText;
       navigator.clipboard.writeText(code).then(() => {
-        alert('코드가 복사되었습니다!');
+        alert('코드가 클립보드에 복사되었습니다!');
       });
     }
 
-    // 초기 실행
+    // 기본 페이지 설정
     switchPage('streetlamp');
   </script>
 </body>
