@@ -1,4 +1,38 @@
+
 [
-  { "no": 1, "title": "시스템 설계", "desc": "태양광과 풍력 발전을 결합한 하이브리드 에너지 공급 회로를 설계합니다." },
-  { "no": 2, "title": "센서 연결", "desc": "조도 센서를 통해 주변 밝기를 감지하고 LED 가로등의 점등 조건을 설정합니다." }
+  {
+    "no": 1,
+    "title": "에너지 하이브리드 가로등 설계",
+    "link": "",
+    "img": "images/가로등01.png",
+    "desc": "아두이노, 브레드보드, 태양광 전지를 준비합니다."
+  },
+  {
+    "no": 2,
+    "title": "PC의 주요 구성품을 선택하세요.",
+    "link": "",
+    "img": "images/샵다나와02.png",
+    "desc": "수업 전에 PC 사용 목적을 미리 제시해 주시면 학생들이 부품 선택 기준을 잡는 데 도움이 됩니다.\n모든 학생이 동일한 견적을 구성하기보다 예산 범위를 조건으로 제시하면\n부품 선택 이유를 비교하고 분석하는 활동으로 확장하기 좋습니다.\nPC Building Simulator 활동 이후에 본 활동을 진행하면\nPC 조립 구조에 대한 이해에서 실제 가격 기반 설계 활동으로 자연스럽게 연결됩니다."
+  },
+  {
+    "no": 3,
+    "title": "샵다나와의 견적서 기능",
+    "link": "",
+    "img": "images/샵다나와03.png",
+    "desc": ""
+  },
+  {
+    "no": 4,
+    "title": "나만의 PC 시스템 설계 하기 - 컴퓨존",
+    "link": "https://www.compuzone.co.kr/online/online_main.htm?bannerid=GNBBannerOnlineMain&srsltid=AfmBOopTvg5kGsiUoVZDgqCO0LQbwcBCwkCV2hStIOyDBpHMpYkkhkb4",
+    "img": "images/컴퓨존01.png",
+    "desc": "[컴퓨존]도 [샵다나와]와 같은 기능을 제공합니다. 사용해보시고 더 편한 사이트를 이용하세요."
+  },
+  {
+    "no": 5,
+    "title": "컴퓨존의 견적서 기능",
+    "link": "",
+    "img": "images/컴퓨존02.png",
+    "desc": ""
+  }
 ]
