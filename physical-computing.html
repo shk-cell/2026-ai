@@ -48,7 +48,7 @@
     }
     .home-btn:hover{ background:#f6f8fa; }
 
-    /* ✅ 단원 내부 탭 구성 */
+    /* 탭 스타일 */
     .tabs{
       display:flex;
       gap:10px;
@@ -71,6 +71,7 @@
       border-color:#111827;
     }
 
+    /* 리스트 아이템 스타일 */
     .item{
       display:grid;
       grid-template-columns:420px 1fr;
@@ -98,6 +99,37 @@
       font-size:15px;
     }
 
+    /* 코드 섹션 스타일 */
+    #code-section {
+      margin-top:30px;
+      border-top:2px solid var(--border);
+      padding-top:20px;
+    }
+    .code-wrapper {
+      background:#1e1e1e;
+      color:#d4d4d4;
+      padding:20px;
+      border-radius:12px;
+      font-family:monospace;
+      font-size:14px;
+      line-height:1.5;
+      overflow-x:auto;
+      position:relative;
+    }
+    .copy-btn {
+      position:absolute;
+      right:15px;
+      top:15px;
+      padding:6px 10px;
+      background:#444;
+      color:#fff;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      font-size:12px;
+    }
+    .copy-btn:hover { background:#666; }
+
     @media (max-width: 900px){
       .item{ grid-template-columns: 1fr; }
     }
@@ -120,14 +152,71 @@
 
   <div id="list"></div>
 
+  <div id="code-section" style="display:none;">
+    <h2 style="font-size:18px; font-weight:700; margin-bottom:12px;">💾 전체 프로그램 코드</h2>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyCode()">코드 복사</button>
+      <pre id="code-block" style="margin:0; white-space:pre-wrap;"></pre>
+    </div>
+  </div>
+
   <script>
     const listEl = document.getElementById('list');
+    const codeSection = document.getElementById('code-section');
+    const codeBlock = document.getElementById('code-block');
 
-    // ✅ 데이터 파일 경로 설정 (추후 data 폴더에 해당 json 파일들을 생성해야 합니다)
     const pages = {
       streetlamp: { file: 'data/hybrid-streetlamp.json' },
       tracker:    { file: 'data/solar-tracker.json' }
     };
+
+    // 아두이노 소스코드 데이터
+    const streetlampCode = `unsigned long previousMillis = 0;
+const long interval = 2000;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(A1, INPUT);    // 캐패시터 전압 측정용
+  pinMode(A0, INPUT);    // 스위치 상태 감지용
+}
+
+void loop() {
+  unsigned long currentMillis = millis();
+
+  // 2초 간격으로 실행
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+
+    // 1. A1에서 캐패시터 전압 측정
+    int chargeLevel = analogRead(A1);
+    float solarVoltage = chargeLevel * (5.0 / 1023.0);
+    
+    // 2. A0(스위치 가운데 다리) 전압 측정
+    int senseValue = analogRead(A0); 
+    float currentPower = senseValue * (5.0 / 1023.0);
+
+    Serial.println("---------- Status Report ----------");
+
+    // 기준: A0 전압이 4.5V보다 크면 아두이노 전원(오른쪽)으로 판단
+    if (currentPower > 4.5) {
+      Serial.println("Mode: [ARDUINO POWER] - Stable");
+    } 
+    // 그 외에는 캐패시터 전원(왼쪽) 사용 중으로 판단
+    else {
+      Serial.print("Mode: [SOLAR POWER] - ");
+      Serial.print(solarVoltage); // A1에서 측정한 전압값
+      Serial.println(" V");
+      
+      // 빨간 LED 전압 특성을 고려하여 3.0V 기준으로 경고
+      if (solarVoltage < 3.0) {
+        Serial.println("Warning: Low Energy!");
+      }
+    }
+    Serial.println("-----------------------------------");
+  }
+}`;
+
+    const trackerCode = `// 태양광 추적 시스템 코드는 준비 중입니다.`;
 
     function escapeHtml(s){
       return String(s ?? '')
@@ -164,21 +253,35 @@
 
     async function switchPage(key){
       setActiveTab(key);
-      listEl.innerHTML = '<p style="padding:20px; color:#6b7280;">데이터를 불러오는 중...</p>';
+      listEl.innerHTML = '<p style="padding:20px;">데이터 로딩 중...</p>';
+
+      // 코드 섹션 제어
+      if (key === 'streetlamp') {
+        codeSection.style.display = 'block';
+        codeBlock.innerText = streetlampCode;
+      } else {
+        codeSection.style.display = 'none'; // 혹은 trackerCode 연결
+      }
 
       try{
         const res = await fetch(pages[key].file, { cache:'no-store' });
         if(!res.ok) throw new Error();
         const items = await res.json();
-        
         items.sort((a,b)=>(a.no ?? 0) - (b.no ?? 0));
         render(items);
       }catch{
-        listEl.innerHTML = '<p style="padding:20px; color:#ef4444;">학습 자료(JSON)를 찾을 수 없습니다. data 폴더의 파일을 확인해주세요.</p>';
+        listEl.innerHTML = '<p style="padding:20px; color:#ef4444;">JSON 파일을 찾을 수 없습니다.</p>';
       }
     }
 
-    // 초기 화면 로드
+    function copyCode() {
+      const code = codeBlock.innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('코드가 복사되었습니다!');
+      });
+    }
+
+    // 초기 실행
     switchPage('streetlamp');
   </script>
 </body>
