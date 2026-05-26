@@ -121,6 +121,9 @@
   <a class="home-btn" href="index.html">목차</a>
 
   <div class="tabs">
+    <button class="tab" id="tab-basics" onclick="switchPage('basics')">
+      0. 슬기로운 PC 생활
+    </button>
     <button class="tab" id="tab-web" onclick="switchPage('web')">
       1. 웹 에뮬레이터를 통한 여러 가지 운영체제 체험
     </button>
@@ -136,8 +139,9 @@
     const listEl = document.getElementById('list');
 
     const pages = {
-      web: { file: 'data/web-emulator.json' },
-      vm:  { file: 'data/vm-linux.json' }
+      basics: { file: 'data/pc-basics.json' },
+      web:    { file: 'data/web-emulator.json' },
+      vm:     { file: 'data/vm-linux.json' }
     };
 
     function escapeHtml(s){
@@ -150,6 +154,7 @@
     }
 
     function setActiveTab(key){
+      document.getElementById('tab-basics').classList.toggle('active', key === 'basics');
       document.getElementById('tab-web').classList.toggle('active', key === 'web');
       document.getElementById('tab-vm').classList.toggle('active', key === 'vm');
     }
@@ -198,8 +203,7 @@
       }
     }
 
-    // ✅ 첫 화면 자동 로드
-    switchPage('web');
+    switchPage('basics');
   </script>
 </body>
 </html>
