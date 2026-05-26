@@ -105,6 +105,40 @@
 
     #status{ display:none; }
 
+    .download-section{
+      margin-bottom:24px;
+      padding:16px 18px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#f9fafb;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .download-section span{
+      font-weight:700;
+      font-size:14px;
+      margin-right:4px;
+    }
+
+    .dl-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:8px 14px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:#fff;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:700;
+      font-size:13px;
+      font-family:'MaplestoryLight', system-ui, sans-serif;
+    }
+    .dl-btn:hover{ background:#f0f4ff; border-color:#93c5fd; }
+
     @media (max-width: 900px){
       .item{ grid-template-columns: 1fr; }
     }
@@ -125,11 +159,18 @@
     </button>
   </div>
 
+  <div id="download-section" class="download-section" style="display:none;">
+    <span>파일 다운로드</span>
+    <a class="dl-btn" href="data/Codes.gs" download="Codes.gs">⬇ Codes.gs</a>
+    <a class="dl-btn" href="data/Index.html" download="Index.html">⬇ Index.html</a>
+  </div>
+
   <div id="status"></div>
   <div id="list"></div>
 
   <script>
     const listEl = document.getElementById('list');
+    const downloadSection = document.getElementById('download-section');
 
     const pages = {
       'apps-script': { file: 'data/apps-script.json' },
@@ -184,6 +225,7 @@
     async function switchPage(key){
       setActiveTab(key);
       listEl.innerHTML = '';
+      downloadSection.style.display = key === 'apps-script' ? 'flex' : 'none';
 
       try{
         const res = await fetch(pages[key].file, { cache:'no-store' });
