@@ -38,7 +38,6 @@
     /* ✅ 홈(목차) 버튼 */
     .home-btn{
       display:inline-block;
-      margin-bottom:18px;
       padding:8px 12px;
       border-radius:12px;
       border:1px solid var(--border);
@@ -55,6 +54,7 @@
       display:flex;
       gap:10px;
       flex-wrap:wrap;
+      align-items:center;
       margin-bottom:20px;
     }
     .tab{
@@ -117,10 +117,8 @@
 <body>
   <h1>2026학년도 AI중점학교 중등 자료집 - 운영체제</h1>
 
-  <!-- ✅ 목차 버튼만 유지 -->
-  <a class="home-btn" href="index.html">목차</a>
-
   <div class="tabs">
+    <a class="home-btn" href="index.html">목차</a>
     <button class="tab" id="tab-basics" onclick="switchPage('basics')">
       0. 슬기로운 PC 생활
     </button>

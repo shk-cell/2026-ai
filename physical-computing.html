@@ -36,7 +36,6 @@
 
     .home-btn{
       display:inline-block;
-      margin-bottom:18px;
       padding:8px 12px;
       border-radius:12px;
       border:1px solid var(--border);
@@ -52,6 +51,7 @@
       display:flex;
       gap:10px;
       flex-wrap:wrap;
+      align-items:center;
       margin-bottom:20px;
     }
     .tab{
@@ -136,9 +136,8 @@
 <body>
   <h1>2026학년도 AI중점학교 중등 자료집 - 피지컬 컴퓨팅</h1>
 
-  <a class="home-btn" href="index.html">목차</a>
-
   <div class="tabs">
+    <a class="home-btn" href="index.html">목차</a>
     <button class="tab" id="tab-streetlamp" onclick="switchPage('streetlamp')">
       1. 에너지 하이브리드 가로등 시스템
     </button>
