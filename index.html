@@ -6,7 +6,6 @@
   <title>2026학년도 AI중점학교 중등 자료집</title>
 
   <style>
-    /* ✅ 폰트 등록 */
     @font-face{
       font-family:'MaplestoryLight';
       src:url('fonts/MaplestoryLight.ttf') format('truetype');
@@ -14,125 +13,161 @@
       font-style:normal;
     }
 
-    :root{
-      --border:#e5e7eb;
-      --text:#111827;
-      --bg:#ffffff;
-      --muted:#6b7280;
-    }
+    *{ box-sizing:border-box; }
 
     body{
       font-family:'MaplestoryLight', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      margin:24px;
-      color:var(--text);
-      background:var(--bg);
+      margin:0;
+      padding:32px 24px 48px;
+      background:#f1f5f9;
+      color:#111827;
+      min-height:100vh;
     }
 
-    h1{
-      font-size:22px;
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+    }
+
+    /* 헤더 */
+    .header{
+      background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);
+      border-radius:20px;
+      padding:36px 32px;
+      margin-bottom:24px;
+    }
+
+    .header h1{
+      font-size:24px;
       font-weight:700;
-      margin:0 0 20px 0;
+      margin:0 0 8px;
+      color:#fff;
     }
 
-    .panel{
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:#fff;
-      padding:18px;
+    .header p{
+      margin:0;
+      font-size:14px;
+      color:#94a3b8;
     }
 
+    /* 그리드 */
     .grid{
       display:grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap:12px;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
     }
 
+    /* 카드 */
     .card{
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:#f9fafb;
-      padding:16px;
+      background:#fff;
+      border-radius:16px;
+      padding:22px 20px 20px;
+      border-top:4px solid var(--accent,#e5e7eb);
+      box-shadow:0 1px 4px rgba(0,0,0,0.07);
+      display:flex;
+      flex-direction:column;
+      transition:box-shadow .2s, transform .2s;
+    }
+
+    .card:hover{
+      box-shadow:0 8px 28px rgba(0,0,0,0.13);
+      transform:translateY(-3px);
+    }
+
+    .card:nth-child(1){ --accent:#3b82f6; }
+    .card:nth-child(2){ --accent:#8b5cf6; }
+    .card:nth-child(3){ --accent:#10b981; }
+    .card:nth-child(4){ --accent:#f59e0b; }
+
+    .card .num{
+      font-size:12px;
+      font-weight:700;
+      color:var(--accent);
+      margin:0 0 6px;
     }
 
     .card .title{
-      font-weight:700;
-      margin:0 0 8px 0;
       font-size:15px;
+      font-weight:700;
+      margin:0 0 10px;
+      color:#111827;
     }
 
     .card .desc{
+      font-size:13px;
+      color:#6b7280;
+      line-height:1.7;
       margin:0;
-      color:var(--muted);
-      line-height:1.6;
-      font-size:14px;
+      flex:1;
       white-space:pre-wrap;
     }
 
     .card a{
       display:inline-block;
-      margin-top:12px;
-      padding:8px 12px;
+      margin-top:18px;
+      padding:9px 14px;
       border-radius:10px;
-      border:1px solid var(--border);
-      background:#fff;
+      background:var(--accent);
+      color:#fff;
       text-decoration:none;
-      color:var(--text);
       font-weight:700;
       font-size:13px;
+      border:none;
+      transition:opacity .15s;
     }
 
-    .card a:hover{
-      background:#f6f8fa;
-    }
+    .card a:hover{ opacity:.82; }
 
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
+    @media(max-width:900px){
+      .grid{ grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:560px){
+      .grid{ grid-template-columns:1fr; }
     }
   </style>
 </head>
 
 <body>
-  <h1>2026학년도 AI중점학교 중등 자료집</h1>
+  <div class="wrap">
+    <div class="header">
+      <h1>2026학년도 AI중점학교 중등 자료집</h1>
+      <p>단원을 선택하여 학습을 시작하세요.</p>
+    </div>
 
-  <section class="panel">
     <div class="grid">
       <div class="card">
-        <p class="title">1. 컴퓨팅시스템</p>
-        <p class="desc">
-PC BUILDING SIMULATOR를 소개하고,
-온라인 PC판매사이트를 활용해 나만의 PC 견적을 맞춰봅니다.
-        </p>
+        <p class="num">단원 1</p>
+        <p class="title">컴퓨팅시스템</p>
+        <p class="desc">PC BUILDING SIMULATOR를 소개하고,
+온라인 PC판매사이트를 활용해 나만의 PC 견적을 맞춰봅니다.</p>
         <a href="computing-system.html">단원으로 이동</a>
       </div>
 
       <div class="card">
-        <p class="title">2. 운영체제</p>
-        <p class="desc">
-웹 에뮬레이터와 가상머신을 활용하여
-여러 운영체제를 직접 체험합니다.
-        </p>
+        <p class="num">단원 2</p>
+        <p class="title">운영체제</p>
+        <p class="desc">웹 에뮬레이터와 가상머신을 활용하여
+여러 운영체제를 직접 체험합니다.</p>
         <a href="os.html">단원으로 이동</a>
       </div>
 
       <div class="card">
-        <p class="title">3. 피지컬 컴퓨팅</p>
-        <p class="desc">
-Tinkercad Circuits를 활용하여
-에너지 하이브리드 가로등과 태양광 추적 시스템을 구현합니다.
-        </p>
+        <p class="num">단원 3</p>
+        <p class="title">피지컬 컴퓨팅</p>
+        <p class="desc">Tinkercad Circuits를 활용하여
+에너지 하이브리드 가로등과 태양광 추적 시스템을 구현합니다.</p>
         <a href="physical-computing.html">단원으로 이동</a>
       </div>
 
       <div class="card">
-        <p class="title">4. 프로그래밍</p>
-        <p class="desc">
-바이브 코딩의 기초를 배우는 단원입니다.
+        <p class="num">단원 4</p>
+        <p class="title">프로그래밍</p>
+        <p class="desc">바이브 코딩의 기초를 배우는 단원입니다.
 제미나이와 구글 앱스크립트를 활용하여
-나만의 앱을 만들어 봅니다.
-        </p>
+나만의 앱을 만들어 봅니다.</p>
         <a href="programming.html">단원으로 이동</a>
       </div>
     </div>
-  </section>
+  </div>
 </body>
 </html>
