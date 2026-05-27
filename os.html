@@ -6,7 +6,6 @@
   <title>2026학년도 AI중점학교 중등 자료집 - 운영체제</title>
 
   <style>
-    /* ✅ 폰트 등록 */
     @font-face{
       font-family:'MaplestoryLight';
       src:url('fonts/MaplestoryLight.ttf') format('truetype');
@@ -14,76 +13,97 @@
       font-style:normal;
     }
 
+    *{ box-sizing:border-box; }
+
     :root{
-      --border:#e5e7eb;
+      --accent:#8b5cf6;
+      --accent-light:#f5f3ff;
+      --border:#e2e8f0;
       --text:#111827;
-      --bg:#ffffff;
-      --link:#2563eb;
       --muted:#6b7280;
+      --link:#2563eb;
     }
+
+    html{ background:#f8fafc; }
 
     body{
       font-family:'MaplestoryLight', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      margin:24px;
+      margin:0;
+      padding:28px 24px 48px;
       color:var(--text);
-      background:var(--bg);
     }
+
+    .wrap{ max-width:1100px; margin:0 auto; }
 
     h1{
-      font-size:22px;
+      font-size:20px;
       font-weight:700;
-      margin:0 0 16px 0;
+      margin:0 0 16px;
+      padding:20px 22px;
+      background:var(--accent-light);
+      border-radius:16px;
+      border-left:5px solid var(--accent);
+      color:#1e293b;
     }
 
-    /* ✅ 홈(목차) 버튼 */
-    .home-btn{
-      display:inline-block;
-      padding:8px 12px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      text-decoration:none;
-      color:var(--text);
-      background:#fff;
-      font-weight:700;
-      font-size:14px;
-    }
-    .home-btn:hover{ background:#f6f8fa; }
-
-    /* 운영체제 내부 탭 */
     .tabs{
       display:flex;
-      gap:10px;
+      gap:8px;
       flex-wrap:wrap;
       align-items:center;
       margin-bottom:20px;
-    }
-    .tab{
-      padding:10px 14px;
+      background:#fff;
       border:1px solid var(--border);
-      border-radius:12px;
-      background:#f9fafb;
-      cursor:pointer;
-      font-size:14px;
-      font-weight:700;
-      font-family:'MaplestoryLight', system-ui, sans-serif; /* ✅ 메이플 폰트 */
-    }
-    .tab.active{
-      background:#111827;
-      color:#fff;
-      border-color:#111827;
+      border-radius:14px;
+      padding:10px 12px;
+      box-shadow:0 1px 3px rgba(0,0,0,0.05);
     }
 
+    .home-btn{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 14px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      text-decoration:none;
+      color:var(--text);
+      background:#f8fafc;
+      font-weight:700;
+      font-size:13px;
+      transition:background .15s;
+    }
+    .home-btn:hover{ background:#f1f5f9; }
+
+    .tab{
+      padding:8px 14px;
+      border:none;
+      border-radius:8px;
+      background:transparent;
+      cursor:pointer;
+      font-size:13px;
+      font-weight:700;
+      color:var(--muted);
+      font-family:'MaplestoryLight', system-ui, sans-serif;
+      transition:background .15s, color .15s;
+    }
+    .tab:hover{ background:#f1f5f9; color:#111827; }
+    .tab.active{ background:var(--accent); color:#fff; }
+
     .item{
+      background:#fff;
+      border-radius:16px;
+      border:1px solid var(--border);
+      box-shadow:0 1px 4px rgba(0,0,0,0.06);
       display:grid;
-      grid-template-columns:420px 1fr;
-      gap:16px;
-      padding:18px 0;
-      border-top:1px solid var(--border);
+      grid-template-columns:400px 1fr;
+      gap:20px;
+      padding:20px;
+      margin-bottom:12px;
     }
 
     img{
       width:100%;
-      border-radius:12px;
+      border-radius:10px;
       border:1px solid var(--border);
       background:#f9fafb;
     }
@@ -92,46 +112,50 @@
       font-weight:700;
       font-size:14px;
       margin-bottom:10px;
+      color:var(--text);
+      padding-bottom:8px;
+      border-bottom:2px solid var(--accent);
+      display:inline-block;
     }
 
-    .badge a{
-      color:var(--link);
-      text-decoration:underline;
-    }
+    .badge a{ color:var(--link); text-decoration:underline; }
     .badge a:hover{ text-decoration:none; }
 
     .desc{
       white-space:pre-wrap;
-      line-height:1.65;
-      font-size:15px;
+      line-height:1.7;
+      font-size:14px;
+      color:#374151;
     }
 
     #status{ display:none; }
 
-    @media (max-width: 900px){
-      .item{ grid-template-columns: 1fr; }
+    @media(max-width:900px){
+      .item{ grid-template-columns:1fr; }
     }
   </style>
 </head>
 
 <body>
-  <h1>2026학년도 AI중점학교 중등 자료집 - 운영체제</h1>
+  <div class="wrap">
+    <h1>2. 운영체제</h1>
 
-  <div class="tabs">
-    <a class="home-btn" href="index.html">목차</a>
-    <button class="tab" id="tab-basics" onclick="switchPage('basics')">
-      0. 슬기로운 PC 생활
-    </button>
-    <button class="tab" id="tab-web" onclick="switchPage('web')">
-      1. 웹 에뮬레이터를 통한 여러 가지 운영체제 체험
-    </button>
-    <button class="tab" id="tab-vm" onclick="switchPage('vm')">
-      2. 가상머신을 활용한 리눅스 체험
-    </button>
+    <div class="tabs">
+      <a class="home-btn" href="index.html">목차</a>
+      <button class="tab" id="tab-basics" onclick="switchPage('basics')">
+        0. 슬기로운 PC 생활
+      </button>
+      <button class="tab" id="tab-web" onclick="switchPage('web')">
+        1. 웹 에뮬레이터를 통한 여러 가지 운영체제 체험
+      </button>
+      <button class="tab" id="tab-vm" onclick="switchPage('vm')">
+        2. 가상머신을 활용한 리눅스 체험
+      </button>
+    </div>
+
+    <div id="status"></div>
+    <div id="list"></div>
   </div>
-
-  <div id="status"></div>
-  <div id="list"></div>
 
   <script>
     const listEl = document.getElementById('list');
@@ -205,4 +229,3 @@
   </script>
 </body>
 </html>
-
