@@ -119,11 +119,114 @@
 
     .card a:hover{ opacity:.82; }
 
+    /* 지도안 섹션 */
+    .section-header{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:36px 0 16px;
+    }
+
+    .section-header .icon{
+      width:36px;
+      height:36px;
+      background:linear-gradient(135deg,#6366f1,#8b5cf6);
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+      flex-shrink:0;
+    }
+
+    .section-header h2{
+      font-size:17px;
+      font-weight:700;
+      margin:0;
+      color:#1e293b;
+    }
+
+    .section-header p{
+      font-size:13px;
+      color:#64748b;
+      margin:2px 0 0;
+    }
+
+    .dl-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+
+    .dl-card{
+      background:#fff;
+      border-radius:14px;
+      padding:18px 16px 16px;
+      border:1px solid #e2e8f0;
+      border-left:4px solid var(--accent,#6366f1);
+      box-shadow:0 1px 4px rgba(0,0,0,0.06);
+      display:flex;
+      flex-direction:column;
+      transition:box-shadow .2s, transform .2s;
+    }
+
+    .dl-card:hover{
+      box-shadow:0 6px 24px rgba(0,0,0,0.11);
+      transform:translateY(-2px);
+    }
+
+    .dl-card:nth-child(1){ --accent:#3b82f6; }
+    .dl-card:nth-child(2){ --accent:#8b5cf6; }
+    .dl-card:nth-child(3){ --accent:#10b981; }
+    .dl-card:nth-child(4){ --accent:#f59e0b; }
+
+    .dl-card .dl-num{
+      font-size:11px;
+      font-weight:700;
+      color:var(--accent);
+      margin:0 0 5px;
+      letter-spacing:.5px;
+    }
+
+    .dl-card .dl-title{
+      font-size:14px;
+      font-weight:700;
+      margin:0 0 6px;
+      color:#111827;
+    }
+
+    .dl-card .dl-desc{
+      font-size:12px;
+      color:#6b7280;
+      line-height:1.65;
+      margin:0;
+      flex:1;
+    }
+
+    .dl-card a{
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      margin-top:14px;
+      padding:8px 12px;
+      border-radius:8px;
+      background:var(--accent);
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      font-size:12px;
+      transition:opacity .15s;
+    }
+
+    .dl-card a:hover{ opacity:.82; }
+
     @media(max-width:900px){
       .grid{ grid-template-columns:1fr 1fr; }
+      .dl-grid{ grid-template-columns:1fr 1fr; }
     }
     @media(max-width:560px){
       .grid{ grid-template-columns:1fr; }
+      .dl-grid{ grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -169,6 +272,46 @@
         <a href="programming.html">단원으로 이동</a>
       </div>
     </div>
+
+    <!-- 지도안 다운로드 -->
+    <div class="section-header">
+      <div class="icon">📄</div>
+      <div>
+        <h2>지도안 다운로드</h2>
+        <p>각 단원의 교수·학습 지도안을 내려받을 수 있습니다.</p>
+      </div>
+    </div>
+
+    <div class="dl-grid">
+      <div class="dl-card">
+        <p class="dl-num">단원 1</p>
+        <p class="dl-title">컴퓨팅시스템 지도안</p>
+        <p class="dl-desc">PC 구성요소 이해와<br>나만의 컴퓨팅 시스템 설계</p>
+        <a href="book/Ⅰ. 컴퓨팅 시스템 – 컴퓨팅 시스템의 이해 - 컴퓨팅시스템(PC구성요소 이해와 나만의 컴퓨팅 시스템 설계).hwpx" download>⬇ 다운로드</a>
+      </div>
+
+      <div class="dl-card">
+        <p class="dl-num">단원 2</p>
+        <p class="dl-title">운영체제 지도안</p>
+        <p class="dl-desc">슬기로운 PC 생활<br>윈도우 기초부터 리눅스 첫걸음</p>
+        <a href="book/Ⅰ. 컴퓨팅 시스템 – 컴퓨팅 시스템의 이해 - 운영체제(슬기로운PC생활-윈도우기초부터리눅스첫걸음).hwp" download>⬇ 다운로드</a>
+      </div>
+
+      <div class="dl-card">
+        <p class="dl-num">단원 3</p>
+        <p class="dl-title">피지컬 컴퓨팅 지도안</p>
+        <p class="dl-desc">AI와 함께 만드는<br>지능형 태양광 시스템</p>
+        <a href="book/Ⅰ. 컴퓨팅 시스템 – 피지컬 컴퓨팅 시스템 - 피지컬 컴퓨팅 시스템 구현(AI와 함께 만드는 지능형 태양광 시스템).hwpx" download>⬇ 다운로드</a>
+      </div>
+
+      <div class="dl-card">
+        <p class="dl-num">단원 4</p>
+        <p class="dl-title">프로그래밍 지도안</p>
+        <p class="dl-desc">알고리즘과 프로그래밍<br>우리학교 급식 월드컵</p>
+        <a href="book/Ⅲ. 알고리즘과 프로그래밍-프로그래밍(우리학교 급식 월드컵).hwpx" download>⬇ 다운로드</a>
+      </div>
+    </div>
+
   </div>
 </body>
 </html>
