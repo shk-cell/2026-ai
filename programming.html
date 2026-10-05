@@ -79,74 +79,15 @@
       border:none;
       border-radius:8px;
       background:transparent;
-      cursor:pointer;
       font-size:13px;
       font-weight:700;
       color:var(--muted);
       font-family:'MaplestoryLight', system-ui, sans-serif;
       transition:background .15s, color .15s;
     }
-    .tab:hover{ background:#f1f5f9; color:#111827; }
     .tab.active{ background:var(--accent); color:#fff; }
 
-    .item{
-      background:#fff;
-      border-radius:16px;
-      border:1px solid var(--border);
-      box-shadow:0 1px 4px rgba(0,0,0,0.06);
-      display:grid;
-      grid-template-columns:400px 1fr;
-      gap:20px;
-      padding:20px;
-      margin-bottom:12px;
-    }
 
-    img{
-      width:100%;
-      border-radius:10px;
-      border:1px solid var(--border);
-      background:#f9fafb;
-    }
-
-    .badge{
-      font-weight:700;
-      font-size:14px;
-      margin-bottom:10px;
-      color:var(--text);
-      padding-bottom:8px;
-      border-bottom:2px solid var(--accent);
-      display:inline-block;
-    }
-
-    .badge a{ color:var(--link); text-decoration:underline; }
-    .badge a:hover{ text-decoration:none; }
-
-    .desc{
-      white-space:pre-wrap;
-      line-height:1.7;
-      font-size:14px;
-      color:#374151;
-    }
-
-    #status{ display:none; }
-
-    .download-section{
-      margin-bottom:16px;
-      padding:14px 16px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:#fff;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-      box-shadow:0 1px 3px rgba(0,0,0,0.05);
-    }
-
-    .download-section span{
-      font-weight:700;
-      font-size:14px;
-    }
 
     .dl-btn{
       display:inline-flex;
@@ -181,10 +122,6 @@
       background:#fff;
       box-shadow:0 1px 4px rgba(0,0,0,0.06);
     }
-
-    @media(max-width:900px){
-      .item{ grid-template-columns:1fr; }
-    }
   </style>
 </head>
 
@@ -194,113 +131,13 @@
 
     <div class="tabs">
       <a class="home-btn" href="index.html">목차</a>
-      <button class="tab" id="tab-apps-script" onclick="switchPage('apps-script')">
-        1. 구글 앱스크립트로 앱 만들기
-      </button>
-      <button class="tab" id="tab-gemini" onclick="switchPage('gemini')">
-        2. 제미나이로 바이브 코딩하기
-      </button>
-      <button class="tab" id="tab-intro" onclick="switchPage('intro')">
-        3. 앱스크립트 웹앱 실습 (돌림판·게시판·게임)
-      </button>
+      <span class="tab active">1. 앱스크립트 웹앱 실습 (돌림판·게시판·게임)</span>
     </div>
 
-    <div id="download-section" class="download-section" style="display:none;">
-      <span>파일 다운로드</span>
-      <a class="dl-btn" href="data/Code.gs" download="Code.gs">⬇ Code.gs</a>
-      <a class="dl-btn" href="data/Index.html" download="Index.html">⬇ Index.html</a>
+    <div class="deck-bar">
+      <a class="dl-btn" href="apps-script-intro.html" target="_blank" rel="noopener">⛶ 새 창에서 크게 보기</a>
     </div>
-
-    <div id="status"></div>
-    <div id="list"></div>
+    <iframe class="deck-frame" src="apps-script-intro.html" title="앱스크립트 웹앱 실습 슬라이드"></iframe>
   </div>
-
-  <script>
-    const listEl = document.getElementById('list');
-    const downloadSection = document.getElementById('download-section');
-
-    const pages = {
-      'apps-script': { file: 'data/apps-script.json' },
-      gemini:        { file: 'data/gemini-api.json' },
-      intro:         { deck: 'apps-script-intro.html' }
-    };
-
-    function escapeHtml(s){
-      return String(s ?? '')
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'","&#39;");
-    }
-
-    function setActiveTab(key){
-      document.getElementById('tab-apps-script').classList.toggle('active', key === 'apps-script');
-      document.getElementById('tab-gemini').classList.toggle('active', key === 'gemini');
-      document.getElementById('tab-intro').classList.toggle('active', key === 'intro');
-    }
-
-    function render(items){
-      if(!items.length){
-        listEl.innerHTML = '<p style="padding:20px; color:var(--muted);">준비 중입니다.</p>';
-        return;
-      }
-      listEl.innerHTML = items.map(it => {
-        const no = escapeHtml(it.no ?? '');
-        const title = escapeHtml(it.title ?? '');
-        const link = it.link ? escapeHtml(it.link) : '';
-        const img = it.img ? escapeHtml(it.img) : '';
-        const desc = escapeHtml(it.desc ?? '');
-
-        return `
-          <section class="item">
-            <div>
-              <div class="badge">
-                Step ${no} -
-                ${
-                  link
-                    ? `<a href="${link}" target="_blank" rel="noopener noreferrer">${title}</a>`
-                    : title
-                }
-              </div>
-              ${img ? `<img src="${img}" alt="step ${no}">` : ''}
-            </div>
-            <div class="desc">${desc}</div>
-          </section>
-        `;
-      }).join('');
-    }
-
-    async function switchPage(key){
-      setActiveTab(key);
-      listEl.innerHTML = '';
-      downloadSection.style.display = key === 'apps-script' ? 'flex' : 'none';
-
-      if(pages[key].deck){
-        const deck = escapeHtml(pages[key].deck);
-        listEl.innerHTML = `
-          <div class="deck-bar">
-            <a class="dl-btn" href="${deck}" target="_blank" rel="noopener">⛶ 새 창에서 크게 보기</a>
-          </div>
-          <iframe class="deck-frame" src="${deck}" title="앱스크립트 웹앱 실습 슬라이드"></iframe>
-        `;
-        return;
-      }
-
-      try{
-        const res = await fetch(pages[key].file, { cache:'no-store' });
-        if(!res.ok) throw new Error();
-        const items = await res.json();
-        if(!Array.isArray(items)) throw new Error();
-
-        items.sort((a,b)=>(a.no ?? 0) - (b.no ?? 0));
-        render(items);
-      }catch{
-        listEl.innerHTML = '<p style="padding:20px; color:#ef4444;">JSON 파일을 찾을 수 없습니다.</p>';
-      }
-    }
-
-    switchPage('apps-script');
-  </script>
 </body>
 </html>
