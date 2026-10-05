@@ -165,6 +165,23 @@
     }
     .dl-btn:hover{ background:var(--accent-light); border-color:var(--accent); }
 
+    .deck-bar{
+      display:flex;
+      justify-content:flex-end;
+      margin-bottom:10px;
+    }
+
+    .deck-frame{
+      display:block;
+      width:100%;
+      height:min(78vh, 760px);
+      min-height:480px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:#fff;
+      box-shadow:0 1px 4px rgba(0,0,0,0.06);
+    }
+
     @media(max-width:900px){
       .item{ grid-template-columns:1fr; }
     }
@@ -182,6 +199,9 @@
       </button>
       <button class="tab" id="tab-gemini" onclick="switchPage('gemini')">
         2. 제미나이로 바이브 코딩하기
+      </button>
+      <button class="tab" id="tab-intro" onclick="switchPage('intro')">
+        3. 앱스크립트 웹앱 실습 (돌림판·게시판·게임)
       </button>
     </div>
 
@@ -201,7 +221,8 @@
 
     const pages = {
       'apps-script': { file: 'data/apps-script.json' },
-      gemini:        { file: 'data/gemini-api.json' }
+      gemini:        { file: 'data/gemini-api.json' },
+      intro:         { deck: 'apps-script-intro.html' }
     };
 
     function escapeHtml(s){
@@ -216,6 +237,7 @@
     function setActiveTab(key){
       document.getElementById('tab-apps-script').classList.toggle('active', key === 'apps-script');
       document.getElementById('tab-gemini').classList.toggle('active', key === 'gemini');
+      document.getElementById('tab-intro').classList.toggle('active', key === 'intro');
     }
 
     function render(items){
@@ -253,6 +275,17 @@
       setActiveTab(key);
       listEl.innerHTML = '';
       downloadSection.style.display = key === 'apps-script' ? 'flex' : 'none';
+
+      if(pages[key].deck){
+        const deck = escapeHtml(pages[key].deck);
+        listEl.innerHTML = `
+          <div class="deck-bar">
+            <a class="dl-btn" href="${deck}" target="_blank" rel="noopener">⛶ 새 창에서 크게 보기</a>
+          </div>
+          <iframe class="deck-frame" src="${deck}" title="앱스크립트 웹앱 실습 슬라이드"></iframe>
+        `;
+        return;
+      }
 
       try{
         const res = await fetch(pages[key].file, { cache:'no-store' });
